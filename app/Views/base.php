@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Acceuil</title>
-    <link rel="stylesheet" href="card.css">
+    <link rel="stylesheet" href="css/card.css">
 </head>
 <body>
-<div class="background">
 <?php
+session_start();
+
     require_once(APPPATH.'ThirdParty/smarty/Smarty.class.php');
 
     $smarty = new Smarty();
-    $smarty->display(APPPATH.'Views/header.tpl');
+
+
+if(isset($_SESSION['login'])) {
+    $smarty->display(APPPATH . 'Views/connected_header.tpl');
+}else{
+    $smarty->display(APPPATH . 'Views/header.tpl');
+}
 ?>
 
         </br>
@@ -44,8 +51,5 @@
                 <div class="annonce-card"></div>
             </div>
         </div>
-
-
-    </div>
 </body>
 </html>

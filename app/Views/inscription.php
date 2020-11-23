@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Inscription</title>
-    <link rel="stylesheet" href="log.css">
+    <link rel="stylesheet" href="css/log.css">
 </head>
 <body>
 <div class="background">
@@ -11,15 +11,21 @@ require_once(APPPATH.'ThirdParty/smarty/Smarty.class.php');
 
 $smarty = new Smarty();
 $smarty->display(APPPATH.'Views/header.tpl');
-?>
 
-    <form id="msform">
+if (!empty($erreur)):
+?>
+    <div class="alert--danger"><i class="fas fa-times"></i> <?= $erreur ?></div>
+<?php endif ?>
+
+    <form id="msform" action="./inscription" method="post">
+        <?= csrf_field() ?>
+
         <fieldset>
             <h2 class="fs-title">Créez votre compte</h2>
 
             <div>
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Votre email" required/>
+                <input type="email" id="email" name="user_email" placeholder="Votre email" required/>
             </div>
             <div>
                 <label for="login">Pseudo</label>
@@ -43,8 +49,8 @@ $smarty->display(APPPATH.'Views/header.tpl');
             </div>
 
             <p>
-                <input type="button" name="delete" class="action-button-red" value="Effacer">
-                <input type="button" name="next" class="action-button" value="Valider">
+                <input type="reset" name="delete" class="action-button-red" value="Effacer">
+                <input type="submit" name="next" class="action-button" value="Valider">
             </p>
 
         </fieldset>
