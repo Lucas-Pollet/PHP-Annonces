@@ -46,18 +46,24 @@ if(isset($_SESSION['login'])) {
             ?>
 
             <div class="annonce-card">
-                <div class="container">
-                    <img src="img/<?= $model->getPhotoByID($row['A_idannonce']) ?>" alt="Avatar" class="image" style="width:100%">
-                    <div class="middle">
-                        <div class="text"><?= $row['A_description'] ?></div>
+                  <?php if(isset($_SESSION['login']) && ($_SESSION['login'] == $row['U_mail'])): ?>
+                    <legend id="legendcard" style="background: #68e397; text-transform: uppercase; text-align: center; padding: 3px">Votre annonce</legend>
+                  <?php endif ?>
+                    <div class="container">
+                        <img src="img/<?= $model->getPhotoByID($row['A_idannonce']) ?>" alt="Avatar" class="image" style="width:100%; margin-top: -5px;">
+                        <div class="middle">
+                            <div class="text">Les annonces étudiantes partent très vite, dépéchez vous !</div>
+                        </div>
                     </div>
-                </div>
 
-                <?=
-                    $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>"
-                 ?>
+                    <div style="margin: 10px">
+                        <?=
+                        $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>"
+                        ?>
 
-                <a href="/public/ad/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
+                        <a href="/public/ad/show/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
+                    </div>
+
             </div>
 
 

@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class Ad_model extends Model
 {
     protected $table = 'T_annonce';
-    protected $allowedFields = ['A_idannonce', 'A_titre', 'A_cout_loyer', 'A_type_chauffage', 'A_superficie', 'A_description', 'A_ville', 'A_CP'];
+    protected $allowedFields = ['A_idannonce', 'A_titre', 'A_cout_loyer', 'A_cout_charges', 'A_type_chauffage', 'A_superficie', 'A_description', 'A_ville', 'A_CP', 'U_mail'];
 
     public function getListAd(){
         return $this->findAll();
@@ -14,7 +14,6 @@ class Ad_model extends Model
 
     public function getPhotoByID($id){
         $sql = 'SELECT P_nom FROM t_photo JOIN t_annonce using(P_idphoto) WHERE A_idannonce= ?';
-
         $query = $this->db->query($sql, $id);
 
         return $query->getRow()->P_nom;
@@ -24,6 +23,13 @@ class Ad_model extends Model
         return $this->asArray()
             ->where(['A_idannonce' => $id])
             ->first();
+    }
+
+    public function getPersonalAd($mail){
+        $sql = 'SELECT * FROM t_annonce WHERE U_mail=?';
+        $query = $this->db->query($sql, $mail);
+
+        return $query->getResultArray();
     }
 
     public function getNumberOfAd(){

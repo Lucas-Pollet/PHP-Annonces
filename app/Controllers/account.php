@@ -3,6 +3,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Ad_model;
 use App\Models\Uti_model;
 
 class account extends BaseController
@@ -14,12 +15,25 @@ class account extends BaseController
             return redirect()->to('/public/');
         }else{
             $model = new Uti_model();
-            $data = $model->getMail($_SESSION['login']);
+            $data['account'] = $model->getMail($_SESSION['login']);
 
             return view('account', $data);
         }
-
     }
+
+    public function myad(){
+        session_start();
+
+        if(!(isset($_SESSION['login']))) {
+            return redirect()->to('/public/');
+        }else {
+            $mod_ad = new Ad_model();
+            $data['ad_data'] = $mod_ad->getPersonalAd($_SESSION['login']);
+
+            return view('account', $data);
+        }
+    }
+
 
     public function modifnom(){
         $data['modifnom']=1;

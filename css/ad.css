@@ -1,0 +1,79 @@
+/* CSS display ad */
+
+.container-ad{
+    padding-top: 15px;
+    max-width: 500px;
+    min-width: 250px;
+    margin: 0 auto;
+
+}
+
+.container-ad img{
+    width: 100%;
+    height: auto;
+}
+
+.titre-ad{
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.titre-ad::first-letter{
+    text-transform: uppercase;
+}
+
+.prix-ad{
+    margin-top: 5px;
+    color: orangered;
+    font-size: 25px;
+}
+
+.loc-ad{
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.desc{
+    margin-top: 10px;
+    font-style: italic;
+}
+.line{
+    margin-top: -0.5px;
+}
+
+/* CSS display ad on account */
+
+.box-ad{
+    font-size: 20px;
+    background: white;
+    max-width: 1000px;
+    min-width: 400px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 4px;
+}
+
+.text-ad{
+    margin-left: 10px;
+    padding-top: 8px;
+}
+
+.del-button{
+    background: #f73b3b;
+    border-radius: 3px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.edit-button{
+    background: #fcbe49;
+    border-radius: 3px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+}
