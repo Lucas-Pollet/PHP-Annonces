@@ -14,4 +14,17 @@ class Ad extends BaseController
 
         return view('ad', $data);
     }
+
+    public function create(){
+
+    }
+
+    public function edit(){
+
+    }
+
+    public function delete(){
+
+    }
+
 }

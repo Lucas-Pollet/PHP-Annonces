@@ -76,5 +76,7 @@ if(isset($_SESSION['login'])) {
     ?>
 
 </div>
+
+<footer><center>&copy 2020 - Lucas POLLET & Valentin BERTOLINO</center></footer>
 </body>
 </html>

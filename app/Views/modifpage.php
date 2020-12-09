@@ -69,6 +69,10 @@ if(!empty($modifnom)):
             <h2 class="fs-title">Modification mot de passe</h2>
 
             <div>
+                <label for="oldpwd">Ancien Mot de passe</label>
+                <input type="password" id="oldpwd" name="user_oldpwd" placeholder="Ancien mot de passe" required minlength="5">
+            </div>
+            <div>
                 <label for="pwd">Nouveau Mot de passe</label>
                 <input type="password" id="pwd" name="user_pwd" placeholder="Votre mot de passe" required minlength="5">
             </div>

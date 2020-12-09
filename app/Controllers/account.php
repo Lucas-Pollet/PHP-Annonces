@@ -82,8 +82,18 @@ class account extends BaseController
         if($this->request->getMethod() === 'post') {
             session_start();
             $model = new Uti_model();
+
+            $oldpwd = $this->request->getVar('user_oldpwd');
             $mdp = $this->request->getVar('user_pwd');
             $confirm = $this->request->getVar('user_confirm');
+
+            $crypted_pwd = crypt($oldpwd, 'pwd_key');
+            $user = $model->getMail($_SESSION['login']);
+
+            if($user['U_mdp'] != $crypted_pwd){
+                $data['erreur'] = 'Ancien mot de passe incorrecte !';
+                return view('modifpage', $data);
+            }
 
             if($mdp != $confirm){
                 $data['erreur'] = 'Les mots de passe ne correspondent pas !';
