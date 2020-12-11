@@ -58,8 +58,7 @@
     padding-top: 8px;
 }
 
-.del-button{
-    background: #f73b3b;
+.ad-button{
     border-radius: 3px;
     width: 30px;
     height: 30px;
@@ -68,12 +67,30 @@
     margin-left: 5px;
 }
 
-.edit-button{
+.redcolor{
+    background: #f73b3b;
+}
+
+.yellowcolor{
     background: #fcbe49;
-    border-radius: 3px;
-    width: 30px;
-    height: 30px;
-    display: inline-block;
+}
+
+.browncolor{
+    background: #a67f63;
+}
+
+.greencolor{
+    background: #5fc970;
+}
+
+/* create / update ad */
+
+.important-title{
+    padding-top: 8px;
     text-align: center;
-    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+.input-form-ad{
+    width: 100%;
 }

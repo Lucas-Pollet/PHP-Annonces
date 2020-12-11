@@ -41,6 +41,7 @@ $model = new \App\Models\Ad_model();
         <div class="infos-ad"><?= $A_description ?></div>
         <br>
         <div class="btn--info">Contacter le propriétaire</div>
+        <br>
     </div>
     <?php endif ?>
 

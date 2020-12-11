@@ -38,15 +38,21 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
             <a href="/public/public/account/delaccount/"><button class="btn--warning">Supprimer mon compte</button></a>
             <?php endif ?>
         <?php elseif (isset($ad_data)): ?>
-             <h3>Annonces publiés</h3>
+            <br>
+             <a href="/public/ad/create" class="bar"><div class="btn--info"><i class="fas fa-plus-circle"></i>  Ajouter une annonce</div></a>
+
+            <h3>Annonces publiés</h3>
         <?php
                 foreach ($ad_data as $row){ ?>
                         <div class="box-ad">
-                            <p class="text-ad"><?= $row['A_titre'] ?>
-                                <a href="#" h><span class="edit-button"><i class="fas fa-edit"></i></span></a>
-                                <a href="#"><span class="del-button"><i class="fas fa-trash"></i></span></a>
-                                </p>
+                            <p class="text-ad"><?= $row['A_titre'] ?> - Rédaction
+                                <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                                <a href="/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
+                                <a href="/public/ad/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
 
+
+                               <!-- <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a> -->
+                            </p>
 
                         </div>
 
