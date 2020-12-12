@@ -20,13 +20,13 @@ if(isset($_SESSION['login'])) {
 }
 ?>
 
-</br>
+<br>
 <div class="alert--info messagebox">Bienvenue sur ce site de partage d'annonces immobilières entre étudiants !</br>
     Pour pouvoir ajouter une annonce ou contacter un propriétaire, inscrivez-vous dès maintenant !</br></br>
     <?php if (! empty($nbad)): ?>
         Il y a actuellement <?= $nbad ?> annonces en ligne !
     <?php endif ?></div>
-</br>
+<br>
 
 <div class="container-card">
     <?php
@@ -39,9 +39,10 @@ if(isset($_SESSION['login'])) {
 
         foreach ($listad as $row)
         {
-            if(($i % 3 == 0) && ($i > 0)){
-                echo "</div><div class='grid-3 has-gutter paddingcard'>";
-            }
+            if($row['A_state'] == 2):
+                if(($i % 3 == 0) && ($i > 0)){
+                    echo "</div><div class='grid-3 has-gutter paddingcard'>";
+                }
 
             ?>
 
@@ -58,7 +59,7 @@ if(isset($_SESSION['login'])) {
 
                     <div style="margin: 10px">
                         <?=
-                        $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>"
+                        $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>".$row['A_CP']." ".$row['A_ville']."<br>"
                         ?>
 
                         <a href="/public/ad/show/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
@@ -70,6 +71,7 @@ if(isset($_SESSION['login'])) {
           <?php
 
             $i++;
+            endif;
         }
       echo "</div>";
     endif
@@ -77,6 +79,6 @@ if(isset($_SESSION['login'])) {
 
 </div>
 
-<footer><center>&copy 2020 - Lucas POLLET & Valentin BERTOLINO</center></footer>
 </body>
+<?php $smarty->display(APPPATH . 'Views/footer.tpl'); ?>
 </html>

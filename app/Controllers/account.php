@@ -29,6 +29,7 @@ class account extends BaseController
         }else {
             $mod_ad = new Ad_model();
             $data['ad_data'] = $mod_ad->getPersonalAd($_SESSION['login']);
+            $data['archive_ad_data'] = $mod_ad->getArchivedAd($_SESSION['login']);
 
             return view('account', $data);
         }

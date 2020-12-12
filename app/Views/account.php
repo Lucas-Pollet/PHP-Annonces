@@ -16,6 +16,7 @@ $smarty = new Smarty();
 
 $smarty->display(APPPATH . 'Views/connected_header.tpl');
 
+$model = new \App\Models\Ad_model();
 ?>
 
 </br>
@@ -37,31 +38,53 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
             <a href="/public/public/account/modifpwd/"><button class="btn--info">Modifier mon mot de passe</button></a><br><br>
             <a href="/public/public/account/delaccount/"><button class="btn--warning">Supprimer mon compte</button></a>
             <?php endif ?>
-        <?php elseif (isset($ad_data)): ?>
+        <?php elseif (isset($ad_data) || isset($archive_ad_data)): ?>
             <br>
              <a href="/public/ad/create" class="bar"><div class="btn--info"><i class="fas fa-plus-circle"></i>  Ajouter une annonce</div></a>
 
-            <h3>Annonces publiés</h3>
+            <h3>Annonces publiés ou en rédaction</h3>
         <?php
+            if($model->getNumberOfPersonalAd($_SESSION['login']) > 0):
                 foreach ($ad_data as $row){ ?>
-                        <div class="box-ad">
-                            <p class="text-ad"><?= $row['A_titre'] ?> - Rédaction
+                    <div class="box-ad">
+                        <p class="text-ad"><?= $row['A_titre'] ?> - <?php if($model->getState($row['A_idannonce']) == 1):  ?>Rédaction<?php else: ?> Publié le <?= $model->getDate($row['A_idannonce']) ?><?php endif ?>
+
+                            <?php if($row['A_state'] == 2): ?>
                                 <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
-                                <a href="/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
+                            <?php endif ?>
+                            <a href="/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
+
+                            <?php if($row['A_state'] == 2): ?>
                                 <a href="/public/ad/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
-
-
-                               <!-- <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a> -->
-                            </p>
-
-                        </div>
+                            <?php elseif($row['A_state'] == 1): ?>
+                                <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                            <?php endif; ?>
+                        </p>
+                    </div>
 
                     <?php
                 }
-       endif ?>
+                else: echo "Aucune"; endif; ?>
+                <hr>
+                <h3>Annonces archivées</h3>
+                 <?php
+                     if($model->getNumberOfArchivedAd($_SESSION['login']) > 0):
+                        foreach ($archive_ad_data as $row){ ?>
+                         <div class="box-ad">
+                             <p class="text-ad"><?= $row['A_titre'] ?>
+                                 <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                                 <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                             </p>
+                         </div>
+
+                     <?php }
+                        else: echo "Aucune"; endif; ?>
+                 <?php endif; ?>
+                <br>
+
+    <div class="blank"></div>
 
 </div>
 
 </body>
-
 </html>

@@ -19,8 +19,8 @@ class Ad_model extends Model
         $this->db->query($sql, [$titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp, $_SESSION['login']]);
     }
 
-    public function update_ad($id=null, $titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp){
-        $sql = "UPDATE `t_annonce` 
+    public function update_ad($id, $titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp){
+        $sql = "UPDATE `t_annonce`
                 SET A_titre=?, A_cout_loyer=?, A_cout_charges=?, A_type_chauffage=?, A_superficie=?, A_description=?, A_ville=?, A_CP=?
                 WHERE A_idannonce=?";
 
@@ -30,6 +30,21 @@ class Ad_model extends Model
     public function publish_ad($id=null){
         $sql = "UPDATE `t_annonce` 
                 SET A_state=2, A_date=now()
+                WHERE A_idannonce=?";
+
+        $this->db->query($sql, $id);
+    }
+
+    public function archive_ad($id=null){
+        $sql = "UPDATE `t_annonce` 
+                SET A_state=3
+                WHERE A_idannonce=?";
+
+        $this->db->query($sql, $id);
+    }
+
+    public function delete_ad($id=null){
+        $sql = "DELETE FROM `t_annonce` 
                 WHERE A_idannonce=?";
 
         $this->db->query($sql, $id);
@@ -48,6 +63,24 @@ class Ad_model extends Model
             ->first();
     }
 
+    public function getDate($id){
+        $sql = "SELECT DATE_FORMAT(A_date, '%d/%m/%y') as 'date' FROM t_annonce WHERE A_idannonce=?";
+
+        $query = $this->db->query($sql, $id);
+        $row = $query->getRow();
+
+        return $row->date;
+    }
+
+    public function getState($id){
+        $sql = "SELECT A_state FROM t_annonce WHERE A_idannonce=?";
+
+        $query = $this->db->query($sql, $id);
+        $row = $query->getRow();
+
+        return $row->A_state;
+    }
+
     public function getLastID($mail){
         $sql = 'SELECT A_idannonce FROM `t_annonce` WHERE U_mail=? ORDER BY 1 desc LIMIT 1';
         $query = $this->db->query($sql, $mail);
@@ -57,14 +90,39 @@ class Ad_model extends Model
     }
 
     public function getPersonalAd($mail){
-        $sql = 'SELECT * FROM t_annonce WHERE U_mail=?';
+        $sql = 'SELECT * FROM t_annonce WHERE U_mail=? AND A_state!=3';
         $query = $this->db->query($sql, $mail);
 
         return $query->getResultArray();
     }
 
+    public function getArchivedAd($mail){
+        $sql = 'SELECT * FROM t_annonce WHERE U_mail=? AND A_state=3';
+        $query = $this->db->query($sql, $mail);
+
+        return $query->getResultArray();
+    }
+
+    public function getNumberOfPersonalAd($mail){
+        $sql = 'SELECT COUNT(A_idannonce) as "nb" FROM t_annonce WHERE U_mail=? AND A_state!=3';
+        $query = $this->db->query($sql, $mail);
+
+        $row = $query->getRow();
+
+        return $row->nb;
+    }
+
+    public function getNumberOfArchivedAd($mail){
+        $sql = 'SELECT COUNT(A_idannonce) as "nb" FROM t_annonce WHERE U_mail=? AND A_state=3';
+        $query = $this->db->query($sql, $mail);
+
+        $row = $query->getRow();
+
+        return $row->nb;
+    }
+
     public function getNumberOfAd(){
-        $query = $this->db->query('SELECT COUNT(A_idannonce) as "nb" FROM T_annonce');
+        $query = $this->db->query('SELECT COUNT(A_idannonce) as "nb" FROM T_annonce WHERE A_state=2');
 
         $row = $query->getRow();
         return $row->nb;

@@ -17,7 +17,7 @@ class Ad extends BaseController
     }
 
     // création d'une annonce
-    public function create(){
+    public function create($id=null){
         session_start();
         if(isset($_SESSION['login'])){
             if($this->request->getMethod() === 'post'){
@@ -32,9 +32,15 @@ class Ad extends BaseController
 
                 $model = new Ad_model();
 
-                $model->insert_ad($title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
+                // just save
+                if(isset($_POST['save'])){
+                    $model->insert_ad($title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
 
-                $model->publish_ad($model->getLastID($_SESSION['login']));
+                // save and publish
+                }else if(isset($_POST['publish'])){
+                    $model->insert_ad($title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
+                    $model->publish_ad($model->getLastID($_SESSION['login']));
+                }
 
                 return redirect()->to('/public/account/myad');
             }else{
@@ -48,13 +54,40 @@ class Ad extends BaseController
     // édition d'une annonce
     public function edit($id=null){
         session_start();
+
         if(isset($_SESSION['login'])){
             $model = new Ad_model();
+
+            // envoie de l'édition
+            if($this->request->getMethod() === 'post') {
+                $title = $this->request->getVar('title');
+                $loyer = $this->request->getVar('loyer');
+                $charges = $this->request->getVar('charges');
+                $loc_cp = $this->request->getVar('loc_cp');
+                $loc_ville = $this->request->getVar('loc_ville');
+                $chauffage = $this->request->getVar('chauffage');
+                $locsize = $this->request->getVar('locsize');
+                $desc = $this->request->getVar('desc');
+
+                $id_edit = $this->request->getVar('id');
+
+                // just save
+                if (isset($_POST['save'])) {
+                    $model->update_ad($id_edit, $title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
+
+                // save and publish
+                } else if (isset($_POST['publish'])) {
+                    $model->update_ad($id_edit, $title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
+                    $model->publish_ad($id_edit);
+                }
+
+                return redirect()->to('/public/account/myad');
+            }
+
             $data = $model->getAd($id);
 
             // Vérification si cette annonce appartient bien à son créateur
             if($data['U_mail'] == $_SESSION['login']){
-
                 return view('edit_ad', $data);
             }else{
                 return redirect()->to('/public/');
@@ -65,10 +98,38 @@ class Ad extends BaseController
 
     }
 
-    // Suppression d'une annonce
-    public function delete(){
+    public function archive($id=null){
+        session_start();
         if(isset($_SESSION['login'])){
+            $model = new Ad_model();
+            $data = $model->getAd($id);
 
+            // Vérification si cette annonce appartient bien à son créateur
+            if($data['U_mail'] == $_SESSION['login']){
+                $model->archive_ad($id);
+                return redirect()->to('/public/account/myad');
+            }else{
+                return redirect()->to('/public/');
+            }
+        }else{
+            return redirect()->to('/public/');
+        }
+    }
+
+    // Suppression d'une annonce
+    public function delete($id=null){
+        session_start();
+        if(isset($_SESSION['login'])){
+            $model = new Ad_model();
+            $data = $model->getAd($id);
+
+            // Vérification si cette annonce appartient bien à son créateur
+            if($data['U_mail'] == $_SESSION['login']){
+                $model->delete_ad($id);
+                return redirect()->to('/public/account/myad');
+            }else{
+                return redirect()->to('/public/');
+            }
         }else{
             return redirect()->to('/public/');
         }

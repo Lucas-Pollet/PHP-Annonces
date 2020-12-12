@@ -103,3 +103,5 @@ if(!empty($modifnom)):
     </form>
 
 <?php endif ?>
+
+</body>

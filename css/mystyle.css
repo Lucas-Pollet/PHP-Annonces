@@ -29,6 +29,7 @@ body{
 .container-card{
     padding-left: 50px;
     padding-right: 50px;
+    height: 1100px;
 }
 
 .paddingcard{
@@ -47,4 +48,22 @@ body{
 .red-bold-text{
     color: #b33838;
     font-weight: bold;
+}
+
+.blank{
+    height: 50px;
+}
+
+footer{
+    background: #675656;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    position: absolute;
+}
+
+body{
+    height: 100%;
 }

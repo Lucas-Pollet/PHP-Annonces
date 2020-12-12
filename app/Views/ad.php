@@ -25,13 +25,20 @@ $model = new \App\Models\Ad_model();
 
 
     <?php if(isset($A_idannonce) && isset($A_titre) && isset($A_cout_loyer) && isset($A_CP) && isset($A_description)
-        && isset($A_ville)  && isset($A_superficie) && isset($A_cout_charges) && isset($A_type_chauffage)): ?>
-    <div class="container-ad">
+        && isset($A_ville)  && isset($A_superficie) && isset($A_cout_charges) && isset($A_type_chauffage) && isset($A_state)):
+
+        if($A_state == 3): ?>
+            <div class="alert--warning">Ceci est une annonce archivée ! Elle n'est donc plus disponible à la location.</div>
+        <?php endif ?>
+
+
+        <div class="container-ad">
+
         <img src="/public/img/<?= $model->getPhotoByID($A_idannonce) ?>" alt="Avatar" class="image-ad">
 
         <div class="titre-ad"><?= $A_titre ?></div>
         <div class="prix-ad"><?= $A_cout_loyer ?>€ / mois</div>
-        <div class="loc-ad"><i class="fas fa-map-marker-alt"></i> <?= $A_CP." ".$A_ville ?></div>
+        <div class="loc-ad"><i class="fas fa-map-marker-alt"></i> <?= $A_CP." ".$A_ville ?><br>Publié le <?= $model->getDate($A_idannonce) ?></div>
         <div class="desc">Description</div>
         <hr class="line">
         <div class="superficie-ad">Superficie: <?= $A_superficie ?> m²</div>
@@ -44,9 +51,7 @@ $model = new \App\Models\Ad_model();
         <br>
     </div>
     <?php endif ?>
-
-
-
+<div class="blank"></div>
 
 </body>
 </html>
