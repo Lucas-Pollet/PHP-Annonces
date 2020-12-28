@@ -12,6 +12,13 @@ class Ad_model extends Model
         return $this->findAll();
     }
 
+    public function getListAdHome(){
+        $sql = 'SELECT * FROM `t_annonce` ORDER BY A_date desc';
+        $query = $this->db->query($sql);
+
+        return $query->getResultArray();
+    }
+
     public function insert_ad($titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp){
         $sql = "INSERT INTO `t_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_ville`, `A_CP`, `A_state`, `A_date`, `U_mail`, `T_type`, `P_idphoto`, `E_id_engie`) 
                 VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '1', '', ?, 'appart', '1', '1');";

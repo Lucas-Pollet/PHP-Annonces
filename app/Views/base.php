@@ -43,7 +43,7 @@ if(isset($_SESSION['login'])) {
                 if(($i % 3 == 0) && ($i > 0)){
                     echo "</div><div class='grid-3 has-gutter paddingcard'>";
                 }
-
+                if($i < 6):
             ?>
 
             <div class="annonce-card">
@@ -72,13 +72,13 @@ if(isset($_SESSION['login'])) {
 
             $i++;
             endif;
+            endif;
         }
-      echo "</div>";
+       echo "</div>";
     endif
     ?>
 
 </div>
-
-</body>
 <?php $smarty->display(APPPATH . 'Views/footer.tpl'); ?>
+</body>
 </html>

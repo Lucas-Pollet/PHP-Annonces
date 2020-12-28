@@ -9,7 +9,7 @@ class Home extends BaseController
         $model = new Ad_model();
 
         $data['nbad'] = $model->getNumberOfAd();
-        $data['listad'] = $model->getListAd();
+        $data['listad'] = $model->getListAdHome();
 
 		return view('base', $data);
 	}
