@@ -16,6 +16,28 @@ class Ad extends BaseController
         return view('ad', $data);
     }
 
+    // Navigation entre les pages d'annonces
+    public function page($id = null){
+        if(!isset($id)){
+            $id = 1;
+        }
+
+        $model = new Ad_model();
+
+        // nb d'annonces par page
+        $nb_ad_page = 15;
+
+        $data['idpage'] = $id;
+        $total_ad = $model->getNumberOfAd();
+        $data['total_page']=ceil($total_ad / $nb_ad_page);
+
+        $first_entry = ($id-1) * $nb_ad_page;
+
+        $data['listad'] = $model->getListForPage($first_entry, $nb_ad_page);
+
+        return view('page', $data);
+    }
+
     // création d'une annonce
     public function create($id=null){
         session_start();

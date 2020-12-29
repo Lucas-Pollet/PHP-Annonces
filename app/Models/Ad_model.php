@@ -13,8 +13,15 @@ class Ad_model extends Model
     }
 
     public function getListAdHome(){
-        $sql = 'SELECT * FROM `t_annonce` ORDER BY A_date desc';
+        $sql = 'SELECT * FROM `t_annonce` ORDER BY A_date desc LIMIT 6';
         $query = $this->db->query($sql);
+
+        return $query->getResultArray();
+    }
+
+    public function getListForPage($first, $nb){
+        $sql = 'SELECT * FROM `t_annonce` ORDER BY A_date desc LIMIT ?, ?';
+        $query = $this->db->query($sql, [$first, $nb]);
 
         return $query->getResultArray();
     }
