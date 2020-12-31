@@ -21,6 +21,7 @@ if(isset($_SESSION['login'])) {
 
 
 $model = new \App\Models\Ad_model();
+$model_mess = new \App\Models\Messages_model();
 ?>
 
 
@@ -47,7 +48,13 @@ $model = new \App\Models\Ad_model();
         <br>
         <div class="infos-ad"><?= $A_description ?></div>
         <br>
-        <div class="btn--info">Contacter le propriétaire</div>
+
+            <?php if(isset($_SESSION['login']) && isset($U_mail)):
+                if($_SESSION['login'] != $U_mail): ?>
+                <a href="/public/messages/conv/<?= $A_idannonce ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
+            <?php else: ?>
+                <a href="/public/ad/edit/<?= $A_idannonce ?>"><div class="btn--warning">Éditer votre annonce</div></a>
+            <?php endif; endif; ?>
         <br>
     </div>
     <?php endif ?>

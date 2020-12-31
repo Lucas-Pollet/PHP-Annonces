@@ -79,7 +79,43 @@ $model = new \App\Models\Ad_model();
 
                      <?php }
                         else: echo "Aucune"; endif; ?>
-                 <?php endif; ?>
+                 <?php elseif (isset($messages)):
+                    $model_mess = new \App\Models\Messages_model();
+                 ?>
+                     <br>
+                    <h3>Vos conversations</h3>
+            <?php
+                if(isset($list_conv)): $list = array();
+                    foreach ($list_conv as $row){
+
+                        if($_SESSION['login'] == $model_mess->getProprio($row['idad'])){
+                            $link = "/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($row['info']);
+                        }else{
+                            $link = "/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($_SESSION['login']);
+
+                        }
+
+                        if(!in_array($link, $list)):
+                        ?>
+
+                        <div class="box-ad">
+                            <p class="text-ad">Conversation avec <b><?= $model_mess->getPseudo($row['info']) ?></b> pour <b><?= $model->getTitleAd($row['idad']) ?></b>
+                                <a href="<?= $link ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                            </p>
+                        </div>
+
+                        <?php
+                        array_push($list, $link);
+
+                        endif;
+                    }
+
+                endif;
+            ?>
+
+
+
+                <?php endif; ?>
                 <br>
 
     <div class="blank"></div>

@@ -77,6 +77,15 @@ class Ad_model extends Model
             ->first();
     }
 
+    public function getTitleAd($id){
+        $sql = "SELECT A_titre FROM t_annonce WHERE A_idannonce=?";
+
+        $query = $this->db->query($sql, $id);
+        $row = $query->getRow();
+
+        return $row->A_titre;
+    }
+
     public function getDate($id){
         $sql = "SELECT DATE_FORMAT(A_date, '%d/%m/%y') as 'date' FROM t_annonce WHERE A_idannonce=?";
 

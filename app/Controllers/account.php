@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Models\Ad_model;
+use App\Models\Messages_model;
 use App\Models\Uti_model;
 
 class account extends BaseController
@@ -35,6 +36,36 @@ class account extends BaseController
         }
     }
 
+    public function messages(){
+        session_start();
+
+        if(!(isset($_SESSION['login']))) {
+            return redirect()->to('/public/');
+        }else {
+            $mess_mod = new Messages_model();
+
+            $listad = $mess_mod->getAllConversation($_SESSION['login']);
+
+            $test = array();
+            foreach ($listad as $row){
+                if($row['U_receiver'] == $_SESSION['login']){
+                        $array = array('info' => $row['U_mail'], 'idad' => $row['A_idannonce']);
+                        array_push($test, $array);
+                }
+                if($row['U_mail'] == $_SESSION['login']){
+                        $array = array('info' => $row['U_receiver'], 'idad' => $row['A_idannonce']);
+                        array_push($test, $array);
+                }
+                //$array = array('infoad' => $mess_mod->getAllConversation($row['A_idannonce']), 'idad' => $row['A_idannonce']);
+
+            }
+
+            $data['list_conv']  = $test;
+            $data['messages'] = 1;
+
+            return view('account', $data);
+        }
+    }
 
     public function modifnom(){
         $data['modifnom']=1;

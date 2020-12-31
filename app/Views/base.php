@@ -58,8 +58,11 @@ if(isset($_SESSION['login'])) {
                     </div>
 
                     <div style="margin: 10px">
+                        <?php   $date = date_create($row['A_date']);
+                                $date = date_format($date, 'd M Y à H:i'); ?>
+
                         <?=
-                        $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>".$row['A_CP']." ".$row['A_ville']."<br>"
+                        $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>".$row['A_CP']." ".$row['A_ville']."<br>".$date."<br>"
                         ?>
 
                         <a href="/public/ad/show/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
