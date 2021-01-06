@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Annonces - Créer une annonce</title>
     <link rel="stylesheet" href="/css/ad.css">
+    <script type="text/javascript" src="/css/monjs.js"></script>
 </head>
 <body>
 <?php
@@ -16,7 +17,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
 ?>
 
 <div class="container-ad">
-    <form method="post" action="/public/ad/create">
+    <form method="post" action="/public/ad/create" enctype="multipart/form-data">
         <h2 class="important-title">Créer une nouvelle annonce</h2>
         <br>
         <div>
@@ -53,9 +54,15 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
             <input id="locsize"name="locsize" type="text" class="input-form-ad" maxlength="5">
         </div>
         <div>
-            <label for="photo">Photos (min 1 / max 5)</label>
-            <input id="photo" name="photo" type="file" class="input-form-ad" accept="image/*" multiple>
+            <label>Photos (min 1 / max 5)</label><br>
+            <?php $rand = rand(); ?>
+            <input type="button" class="btn--info" id="addphoto" onclick="document.getElementById('photo<?= $rand ?>').click()" value="Ajouter une image">
+
+            <input id="photo<?= $rand ?>" name="photo<?= $rand ?>" type="file" style="display: none" onchange="readURL(this);" accept="image/*">
+
+            <ul id="preview"></ul>
         </div>
+
         <div>
             <label for="desc">Description</label>
             <textarea id="desc" name="desc" class="input-form-ad"></textarea>

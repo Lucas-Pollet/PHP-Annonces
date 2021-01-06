@@ -93,3 +93,26 @@
 .input-form-ad{
     width: 100%;
 }
+
+
+/* image */
+
+.file-upload-content {
+    display: none;
+    text-align: center;
+}
+
+img {
+    max-height: 300px;
+    max-width: 450px;
+    margin: auto;
+    padding: 20px;
+}
+
+li{
+    list-style-type: none;
+}
+.pad-butt{
+
+    margin-left: 10px;
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Annonces - Edition annonce</title>
     <link rel="stylesheet" href="/css/ad.css">
+    <script type="text/javascript" src="/css/monjs.js"></script>
 </head>
 <body>
 <?php
@@ -16,7 +17,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
 ?>
 
 <div class="container-ad">
-    <form method="post" action="/public/ad/edit">
+    <form method="post" action="/public/ad/edit" enctype="multipart/form-data">
         <h2 class="important-title">Édition d'une annonce</h2>
         <br>
         <input name="id" <?php if(isset($A_idannonce)): ?>value="<?= $A_idannonce ?>" <?php endif ?> type="hidden">
@@ -54,8 +55,28 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
             <input id="locsize" name="locsize" type="text" class="input-form-ad" maxlength="5" <?php if(isset($A_superficie)): ?>value="<?= $A_superficie ?>" <?php endif ?> >
         </div>
         <div>
-            <label for="photo">Photos (min 1 / max 5)</label>
-            <input id="photo" name="photo" type="file" class="input-form-ad" accept="image/*" multiple>
+            <label>Photos (min 1 / max 5)</label><br>
+
+            <?php if(isset($photo)):
+                ?>
+                <script>
+                    nbad = <?php echo json_encode(sizeof($photo)+1) ; ?>;
+                </script>
+            <?php
+                foreach ($photo as $item){
+                    echo "<img src='/public/img/".$item['P_nom']."' class='image-ad'>";
+                }
+                endif;
+                if(sizeof($photo) > 0):
+                ?>
+                    <a href="/public/ad/delphoto/<?= $A_idannonce ?>"><input type="button" class="btn--danger"  value="Supprimer les images existantes"></a>
+
+            <?php endif; $rand = rand(); ?>
+            <input type="button" class="btn--info" id="addphoto" onclick="document.getElementById('photo<?= $rand ?>').click()" value="Ajouter une image">
+
+            <input id="photo<?= $rand ?>" name="photo<?= $rand ?>" type="file" style="display: none" onchange="readURL(this);" accept="image/*">
+
+            <ul id="preview"></ul>
         </div>
         <div>
             <label for="desc">Description</label>

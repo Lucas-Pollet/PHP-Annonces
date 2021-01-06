@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Acceuil</title>
-    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="/css/card.css">
 </head>
 <body>
 <?php

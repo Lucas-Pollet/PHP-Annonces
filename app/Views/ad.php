@@ -25,35 +25,36 @@ $model_mess = new \App\Models\Messages_model();
 ?>
 
 
-    <?php if(isset($A_idannonce) && isset($A_titre) && isset($A_cout_loyer) && isset($A_CP) && isset($A_description)
-        && isset($A_ville)  && isset($A_superficie) && isset($A_cout_charges) && isset($A_type_chauffage) && isset($A_state)):
-
-        if($A_state == 3): ?>
+    <?php if(isset($ad)):
+        if($ad['A_state'] == 3): ?>
             <div class="alert--warning">Ceci est une annonce archivée ! Elle n'est donc plus disponible à la location.</div>
         <?php endif ?>
 
 
         <div class="container-ad">
 
-        <img src="/public/img/<?= $model->getPhotoByID($A_idannonce) ?>" alt="Avatar" class="image-ad">
+            <?php if(isset($photo))
+                foreach ($photo as $item){
+                    echo "<img src='/public/img/".$item['P_nom']."' class='image-ad'>";
+                }?>
 
-        <div class="titre-ad"><?= $A_titre ?></div>
-        <div class="prix-ad"><?= $A_cout_loyer ?>€ / mois</div>
-        <div class="loc-ad"><i class="fas fa-map-marker-alt"></i> <?= $A_CP." ".$A_ville ?><br>Publié le <?= $model->getDate($A_idannonce) ?></div>
+        <div class="titre-ad"><?= $ad['A_titre'] ?></div>
+        <div class="prix-ad"><?= $ad['A_cout_loyer'] ?>€ / mois</div>
+        <div class="loc-ad"><i class="fas fa-map-marker-alt"></i> <?= $ad['A_CP']." ".$ad['A_ville'] ?><br>Publié le <?= $model->getDate($ad['A_idannonce']) ?></div>
         <div class="desc">Description</div>
         <hr class="line">
-        <div class="superficie-ad">Superficie: <?= $A_superficie ?> m²</div>
-        <div class="charges-ad">Charges: <?= $A_cout_charges ?>€ / mois</div>
-        <div class="charges-ad">Chauffage: <?= $A_type_chauffage ?></div>
+        <div class="superficie-ad">Superficie: <?= $ad['A_superficie'] ?> m²</div>
+        <div class="charges-ad">Charges: <?= $ad['A_cout_charges'] ?>€ / mois</div>
+        <div class="charges-ad">Chauffage: <?= $ad['A_type_chauffage'] ?></div>
         <br>
-        <div class="infos-ad"><?= $A_description ?></div>
+        <div class="infos-ad"><?= $ad['A_description'] ?></div>
         <br>
 
-            <?php if(isset($_SESSION['login']) && isset($U_mail)):
-                if($_SESSION['login'] != $U_mail): ?>
-                <a href="/public/messages/conv/<?= $A_idannonce ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
+            <?php if(isset($_SESSION['login']) && isset($ad['U_mail'])):
+                if($_SESSION['login'] != $ad['U_mail']): ?>
+                <a href="/public/messages/conv/<?= $ad['A_idannonce'] ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
             <?php else: ?>
-                <a href="/public/ad/edit/<?= $A_idannonce ?>"><div class="btn--warning">Éditer votre annonce</div></a>
+                <a href="/public/ad/edit/<?= $ad['A_idannonce'] ?>"><div class="btn--warning">Éditer votre annonce</div></a>
             <?php endif; endif; ?>
         <br>
     </div>

@@ -27,8 +27,8 @@ class Ad_model extends Model
     }
 
     public function insert_ad($titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp){
-        $sql = "INSERT INTO `t_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_ville`, `A_CP`, `A_state`, `A_date`, `U_mail`, `T_type`, `P_idphoto`, `E_id_engie`) 
-                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '1', '', ?, 'appart', '1', '1');";
+        $sql = "INSERT INTO `t_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_ville`, `A_CP`, `A_state`, `A_date`, `U_mail`, `T_type`, `E_id_engie`) 
+                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '1', '', ?, 'appart', '1');";
 
         $this->db->query($sql, [$titre, $loyer, $charges, $chauffage, $superficie, $desc, $ville, $cp, $_SESSION['login']]);
     }
@@ -64,8 +64,27 @@ class Ad_model extends Model
         $this->db->query($sql, $id);
     }
 
+    public function addPhoto($name, $path, $id){
+        $sql = "INSERT INTO `t_photo` (`P_idphoto`, `P_titre`, `P_nom`, `A_idannonce`) VALUES (NULL, ?, ?, ?)";
+
+        $this->db->query($sql, [$name, $path, $id]);
+    }
+
+    public function removePhoto($id){
+        $sql = "DELETE FROM `t_photo` WHERE A_idannonce=?";
+
+        $this->db->query($sql, $id);
+    }
+
+    public function getALLphoto($id){
+        $sql = 'SELECT * FROM `t_photo` WHERE A_idannonce=?';
+        $query = $this->db->query($sql, $id);
+
+        return $query->getResultArray();
+    }
+
     public function getPhotoByID($id){
-        $sql = 'SELECT P_nom FROM t_photo JOIN t_annonce using(P_idphoto) WHERE A_idannonce= ?';
+        $sql = 'SELECT P_nom FROM t_photo WHERE A_idannonce= ? LIMIT 0,1';
         $query = $this->db->query($sql, $id);
 
         return $query->getRow()->P_nom;

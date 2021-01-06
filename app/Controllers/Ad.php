@@ -11,7 +11,8 @@ class Ad extends BaseController
     public function show($id){
         $model = new Ad_model();
 
-        $data = $model->getAd($id);
+        $data['ad'] = $model->getAd($id);
+        $data['photo'] = $model->getALLphoto($id);
 
         return view('ad', $data);
     }
@@ -43,6 +44,7 @@ class Ad extends BaseController
         session_start();
         if(isset($_SESSION['login'])){
             if($this->request->getMethod() === 'post'){
+
                 $title = $this->request->getVar('title');
                 $loyer = $this->request->getVar('loyer');
                 $charges = $this->request->getVar('charges');
@@ -62,6 +64,14 @@ class Ad extends BaseController
                 }else if(isset($_POST['publish'])){
                     $model->insert_ad($title, $loyer, $charges, $chauffage, $locsize, $desc, $loc_ville, $loc_cp);
                     $model->publish_ad($model->getLastID($_SESSION['login']));
+                }
+
+                foreach ($_FILES as $element){
+                    if($element['error'] == 0) {
+                        move_uploaded_file($element["tmp_name"], "img/" . $element["name"]);
+
+                        $model->addPhoto($element["name"], $element["name"], $model->getLastID($_SESSION['login']));
+                    }
                 }
 
                 return redirect()->to('/public/account/myad');
@@ -103,10 +113,19 @@ class Ad extends BaseController
                     $model->publish_ad($id_edit);
                 }
 
+                foreach ($_FILES as $element){
+                    if($element['error'] == 0) {
+                        move_uploaded_file($element["tmp_name"], "img/" . $element["name"]);
+
+                        $model->addPhoto($element["name"], $element["name"], $id_edit);
+                    }
+                }
+
                 return redirect()->to('/public/account/myad');
             }
 
             $data = $model->getAd($id);
+            $data['photo'] = $model->getALLphoto($id);
 
             // Vérification si cette annonce appartient bien à son créateur
             if($data['U_mail'] == $_SESSION['login']){
@@ -118,6 +137,19 @@ class Ad extends BaseController
             return redirect()->to('/public/');
         }
 
+    }
+
+    public function delphoto($id=null){
+        session_start();
+        if(isset($_SESSION['login'])){
+            $model = new Ad_model();
+            $data = $model->getAd($id);
+            if($data['U_mail'] == $_SESSION['login']){
+                $model->removePhoto($id);
+
+                return redirect()->to("/public/ad/edit/".$id);
+            }
+        }
     }
 
     public function archive($id=null){
