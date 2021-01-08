@@ -85,7 +85,7 @@ class account extends BaseController
         return view('modifpage', $data);
 
     }
-
+/*
     public function modifmail(){
         $data['modifmail']=1;
 
@@ -101,6 +101,29 @@ class account extends BaseController
 
             $model->replaceMail($_SESSION['login'], $email);
             $_SESSION['login']=$email;
+
+            return redirect()->to("/public/account");
+        }
+
+        return view('modifpage', $data);
+    }
+*/
+    public function modifpseudo(){
+        $data['modifpseudo']=1;
+
+        if($this->request->getMethod() === 'post') {
+            session_start();
+            $model = new Uti_model();
+            $pseudo = $this->request->getVar('user_pseudo');
+
+            if($model->getLogin($pseudo) != null){
+                $data['erreur'] = 'Ce pseudo est déjà existant !';
+                return view('modifpage', $data);
+            }
+
+            $profil = $model->getMail($_SESSION['login']);
+
+            $model->replacePseudo($profil['U_pseudo'], $pseudo);
 
             return redirect()->to("/public/account");
         }

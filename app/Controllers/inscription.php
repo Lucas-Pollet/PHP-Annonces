@@ -41,6 +41,9 @@ class inscription extends BaseController
                     'U_prenom' => $prenom
                 ]);
 
+            $mail_syst = new Mail();
+            $mail_syst->sendMail("Compte créé avec succès", "Bienvenue ".$login." sur le site d'annonces immobilières !", $email);
+
             return redirect()->to('connexion/success');
         }else{
             echo view('inscription');

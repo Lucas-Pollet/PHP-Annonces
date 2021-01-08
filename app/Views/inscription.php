@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Inscription</title>
-    <link rel="stylesheet" href="css/log.css">
+    <link rel="stylesheet" href="/css/log.css">
 </head>
 <body>
 <div class="background">

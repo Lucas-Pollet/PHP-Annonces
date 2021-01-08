@@ -24,10 +24,18 @@ class Messages extends BaseController
                     return redirect()->to('/public/messages/conv/' . $id_ad . '/' . $id_asker);
                 }
 
+                $mail = new Mail();
+                $ad_model = new Ad_model();
+                $recup = $ad_model->getAd($id_ad);
+
                 if ($_SESSION['login'] == $model->getProprio($id_ad)) {
                     $model->insert_message($_SESSION['login'], $model->getMailByPseudo($id_asker), $id_ad, $text);
+
+                    $mail->sendMail("Nouveau message", "Bonjour, vous avez un nouveau message dans votre messagerie pour l'annonce ".$recup['A_titre'], $model->getMailByPseudo($id_asker));
                 } else {
                     $model->insert_message($_SESSION['login'], $model->getProprio($id_ad), $id_ad, $text);
+
+                    $mail->sendMail("Nouveau message", "Bonjour, vous avez un nouveau message dans votre messagerie pour l'annonce ".$recup['A_titre'], $model->getProprio($id_ad));
                 }
 
                 return redirect()->to('/public/messages/conv/' . $id_ad . '/' . $id_asker);

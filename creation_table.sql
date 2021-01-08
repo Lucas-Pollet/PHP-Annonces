@@ -1,4 +1,5 @@
 CREATE SCHEMA BD_ANNONCES;
+USE bd_annonces;
 
 CREATE USER 'acces_annonce'@'localhost' IDENTIFIED WITH mysql_native_password BY '***';GRANT USAGE ON *.* TO 'acces_annonce'@'localhost';ALTER USER 'acces_annonce'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, CREATE VIEW, EVENT, TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON `BD_ANNONCES`.* TO 'acces_annonce'@'localhost'; ALTER USER 'acces_annonce'@'localhost' ;
@@ -58,6 +59,12 @@ CREATE TABLE `bd_annonces`.`t_message` (
 ALTER TABLE `T_message` ADD CONSTRAINT `FK_uti` FOREIGN KEY (`U_mail`) REFERENCES `T_utilisateur`(`U_mail`); 
 ALTER TABLE `T_message` ADD CONSTRAINT `FK_receiver` FOREIGN KEY (`U_receiver`) REFERENCES `T_utilisateur`(`U_mail`); 
 ALTER TABLE `T_message` ADD CONSTRAINT `FK_annonce` FOREIGN KEY (`A_idannonce`) REFERENCES `T_annonce`(`A_idannonce`);
+
+CREATE TABLE `bd_annonces`.`t_admin` (
+	`U_mail` VARCHAR(255) NOT NULL,
+	`role` INT NOT NULL ) ENGINE = InnoDB;
+
+
 
 INSERT INTO `t_energie` (`E_id_engie`, `E_description`) VALUES ('1', 'test');
 INSERT INTO `t_typemaison` (`T_type`, `T_description`) VALUES ('appart', 'test');

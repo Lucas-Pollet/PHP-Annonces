@@ -50,13 +50,17 @@ $model_mess = new \App\Models\Messages_model();
         <div class="infos-ad"><?= $ad['A_description'] ?></div>
         <br>
 
-            <?php if(isset($_SESSION['login']) && isset($ad['U_mail'])):
+        <iframe width="100%" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no" src="https://maps.google.com/maps?width=700&amp;height=440&amp;hl=fr&amp;q=<?= $ad['A_ville'] ?>>&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed"></iframe>
+
+        <?php if(isset($_SESSION['login']) && isset($ad['U_mail'])):
                 if($_SESSION['login'] != $ad['U_mail']): ?>
                 <a href="/public/messages/conv/<?= $ad['A_idannonce'] ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
             <?php else: ?>
                 <a href="/public/ad/edit/<?= $ad['A_idannonce'] ?>"><div class="btn--warning">Éditer votre annonce</div></a>
             <?php endif; endif; ?>
         <br>
+
+
     </div>
     <?php endif ?>
 <div class="blank"></div>

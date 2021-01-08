@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
 
-<h1 class="title-site">Annonces entre étudiants</h1>
+<h1 class="title-site">Annonces immobilières</h1>
 <div class="autogrid">
     <a href="http://localhost/public/" class="bar"><div class="button-bar">Acceuil</div></a>
     <a href="http://localhost/public/public/ad/page/" class="bar"><div class="button-bar">Listes Annonces</div></a>

@@ -32,12 +32,22 @@ $model = new \App\Models\Ad_model();
             <br>
             <h2><i class="fas fa-user-alt"></i> Profil</h2>
             <?php if(!empty($account['U_pseudo']) && !empty($account['U_prenom']) && !empty($account['U_nom']) && !empty($account['U_mail'])): ?>
-            <h4>Votre pseudo: <?= $account['U_pseudo'] ?></h4>
+            <h4>Votre pseudo: <?= $account['U_pseudo'] ?> <a href="/public/public/account/modifpseudo/"><button class="btn--info">Modifier</button></a></h4>
             <h4>Votre nom: <?= $account['U_prenom']." ". $account['U_nom']?> <a href="/public/public/account/modifnom/"><button class="btn--info">Modifier</button></a></h4>
-            <h4>Votre adresse email: <?= $account['U_mail'] ?> <a href="/public/public/account/modifmail/"><button class="btn--info">Modifier</button></a></h4><br>
+            <h4>Votre adresse email: <?= $account['U_mail'] ?></h4><br>
             <a href="/public/public/account/modifpwd/"><button class="btn--info">Modifier mon mot de passe</button></a><br><br>
-            <a href="/public/public/account/delaccount/"><button class="btn--warning">Supprimer mon compte</button></a>
-            <?php endif ?>
+
+                <?php
+                $uti_mod = new \App\Models\Uti_model();
+
+                if($uti_mod->getAdmin($account['U_pseudo']) == 1): ?>
+                    <a href="/public/admin"><button class="btn--warning">Accéder au panel admin</button></a>
+                    <?php
+                        else:
+                    ?>
+                       <a href="/public/public/account/delaccount/"><button class="btn--warning">Supprimer mon compte</button></a>
+
+            <?php endif; endif; ?>
         <?php elseif (isset($ad_data) || isset($archive_ad_data)): ?>
             <br>
              <a href="/public/ad/create" class="bar"><div class="btn--info"><i class="fas fa-plus-circle"></i>  Ajouter une annonce</div></a>

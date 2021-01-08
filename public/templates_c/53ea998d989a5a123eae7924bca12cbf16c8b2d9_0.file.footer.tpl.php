@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-12 12:28:26
+/* Smarty version 3.1.34-dev-7, created on 2021-01-08 10:06:58
   from 'D:\wamp64\www\app\Views\footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fd50bca39a356_39797388',
+  'unifunc' => 'content_5ff88322d78c38_04090262',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fd50bca39a356_39797388 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5ff88322d78c38_04090262 (Smarty_Internal_Template $_smarty_tpl) {
 ?><footer>
     &copy 2020 - Lucas POLLET & Valentin BERTOLINO
 </footer><?php }

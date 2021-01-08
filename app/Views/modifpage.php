@@ -44,6 +44,23 @@ if(!empty($modifnom)):
         </fieldset>
     </form>
 
+<?php elseif (!empty($modifpseudo)): ?>
+    <form id="msform" action="http://localhost/public/account/modifpseudo" method="post">
+        <?= csrf_field() ?>
+
+        <fieldset>
+            <h2 class="fs-title">Modification pseudo</h2>
+
+            <div>
+                <label for="pseudo">Nouveau pseudo</label>
+                <input type="text" id="pseudo" name="user_pseudo" placeholder="Votre pseudo" required/>
+            </div>
+
+            <p>
+                <input type="submit" name="next" class="action-button" value="Valider">
+            </p>
+        </fieldset>
+    </form>
 <?php elseif (!empty($modifmail)): ?>
     <form id="msform" action="http://localhost/public/account/modifmail" method="post">
         <?= csrf_field() ?>
