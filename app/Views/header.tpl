@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
 
-<h1 class="title-site">Annonces immobilières</h1>
+<img src="{base_url()}/public/Logo.png" style="height: 15%; width: 30%">
 <div class="autogrid">
     <a href="{base_url()}/public/" class="bar"><div class="button-bar">Acceuil</div></a>
     <a href="{base_url()}/public/page" class="bar"><div class="button-bar">Liste Annonces</div></a>

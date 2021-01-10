@@ -64,7 +64,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
                 </script>
             <?php
                 foreach ($photo as $item){
-                    echo "<img src=".base_url()."/public/img/".$item['P_nom']."' class='image-ad'>";
+                    echo "<img src=".base_url()."/public/img/".$item['P_nom']." class='image-ad'>";
                 }
                 endif;
                 if(sizeof($photo) > 0):

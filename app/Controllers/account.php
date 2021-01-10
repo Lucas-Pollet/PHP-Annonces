@@ -47,7 +47,7 @@ class account extends BaseController
 
             return view("recupmdp");
         }else{
-            return redirect()->to("/public/");
+            return redirect()->to(base_url()."/public/");
         }
     }
 
@@ -92,10 +92,8 @@ class account extends BaseController
                 return view('recupmdp', $data);
             }
 
-            echo $pwd;
-
             $model->replacePwd($mail, $pwd);
-            return redirect()->to(base_url()."/public/account");
+            return redirect()->to(base_url()."/public/");
         }
     }
 
@@ -103,7 +101,7 @@ class account extends BaseController
         session_start();
 
         if(!(isset($_SESSION['login']))) {
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }else {
             $mod_ad = new Ad_model();
             $data['ad_data'] = $mod_ad->getPersonalAd($_SESSION['login']);
@@ -117,7 +115,7 @@ class account extends BaseController
         session_start();
 
         if(!(isset($_SESSION['login']))) {
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }else {
             $mess_mod = new Messages_model();
 

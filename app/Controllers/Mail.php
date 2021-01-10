@@ -23,7 +23,7 @@ class Mail extends BaseController
 
     public function sendTokenByMail($token, $dest){
         $message='Bonjour, <br>';
-        $message.='Une demande pour récupérer votre compte a été demandé<br>';
+        $message.='Une demande pour récupérer votre compte a été effectuée<br>';
         $message.='Pour le récupérer, entrez le code suivant sur le site: <br>';
         $message.='<b>'.$token.'</b>';
 
