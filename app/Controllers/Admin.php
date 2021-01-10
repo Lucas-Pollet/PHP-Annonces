@@ -17,8 +17,8 @@ class Admin extends BaseController
             $uti_mod = new \App\Models\Uti_model();
             $info_uti = $uti_mod->getMail($_SESSION['login']);
 
-            if($uti_mod->getAdmin($info_uti['U_pseudo']) == 1){
-                    return view("admin");
+            if($uti_mod->getAdmin($_SESSION['login']) == 1){
+                return view("admin");
             }
         }
     }
