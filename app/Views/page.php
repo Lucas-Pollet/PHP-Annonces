@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Pages</title>
-    <link rel="stylesheet" href="/css/card.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/card.css">
 </head>
 <body>
 <?php
@@ -44,7 +44,7 @@ if(isset($_SESSION['login'])) {
                     <legend id="legendcard" style="background: #68e397; text-transform: uppercase; text-align: center; padding: 3px">Votre annonce</legend>
                   <?php endif ?>
                     <div class="container">
-                        <img src="/public/img/<?= $model->getPhotoByID($row['A_idannonce']) ?>" alt="Avatar" class="image" style="width:100%; margin-top: -5px;">
+                        <img src="<?= base_url() ?>/public/img/<?= $model->getPhotoByID($row['A_idannonce']) ?>" alt="Avatar" class="image" style="width:100%; margin-top: -5px;">
                         <div class="middle">
                             <div class="text">Les annonces étudiantes partent très vite, dépéchez vous !</div>
                         </div>
@@ -58,7 +58,7 @@ if(isset($_SESSION['login'])) {
                         $row['A_titre']."<br>".$row['A_cout_loyer']."€ / mois<br>".$row['A_CP']." ".$row['A_ville']."<br>".$date."<br>"
                         ?>
 
-                        <a href="/public/ad/show/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
+                        <a href="<?= base_url() ?>/public/ad/show/<?= $row['A_idannonce'] ?>" class="bar"><div class="btn--info">En savoir plus</div></a>
                     </div>
 
             </div>
@@ -79,9 +79,8 @@ if(isset($_SESSION['login'])) {
             for ($i = 1; $i <= $total_page; $i++) {
                 if ($i == $idpage) {
                     echo ' [ ' . $i . ' ] ';
-                } else //Sinon...
-                {
-                    echo ' <a href="/public/ad/page/' . $i . '">' . $i . '</a> ';
+                } else {
+                    echo ' <a href="<?= base_url() ?>/public/ad/page/' . $i . '">' . $i . '</a> ';
                 }
             }
         }

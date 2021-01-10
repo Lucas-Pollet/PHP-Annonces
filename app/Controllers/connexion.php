@@ -29,15 +29,10 @@ class connexion extends BaseController
             session_start();
             $_SESSION['login']=$email;
 
-            return redirect()->to('/public/');
+            return redirect()->to('public');
         }else{
             echo view('connexion');
         }
 
-    }
-
-    public function success(){
-        $info = ['success' => 'Votre compte a été créé avec succès !'];
-        echo view('connexion', $info);
     }
 }

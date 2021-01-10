@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Créer une annonce</title>
-    <link rel="stylesheet" href="/css/ad.css">
-    <script type="text/javascript" src="/css/monjs.js"></script>
+    <link rel="stylesheet" href="/public/css/ad.css">
+    <script type="text/javascript" src="/public/css/monjs.js"></script>
 </head>
 <body>
 <?php

@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class Uti_model extends Model
 {
-    protected $table = 'T_utilisateur';
+    protected $table = 't_utilisateur';
     protected $allowedFields = ['U_mail', 'U_mdp', 'U_pseudo', 'U_nom', 'U_prenom'];
 
     public function getMail($mail){
@@ -23,9 +23,9 @@ class Uti_model extends Model
             ->first();
     }
 
-    public function getAdmin($login){
-        $sql = 'SELECT role FROM t_admin WHERE U_pseudo=?';
-        $query = $this->db->query($sql, $login);
+    public function getAdmin($mail){
+        $sql = 'SELECT role FROM t_admin WHERE U_mail=?';
+        $query = $this->db->query($sql, $mail);
         $row = $query->getRow();
 
         if(isset($row)){
@@ -34,7 +34,7 @@ class Uti_model extends Model
     }
 
     public function getAllUti(){
-        $sql = 'SELECT * FROM T_utilisateur';
+        $sql = 'SELECT * FROM t_utilisateur';
         $query = $this->query($sql);
 
         return $query->getResultArray();
@@ -80,4 +80,23 @@ class Uti_model extends Model
         $this->delete();
     }
 
+    public function insert_token($mail, $token){
+        $sql = 'INSERT INTO  `t_recupmdp` (`mail`, `token`) VALUES (?, ?)';
+
+        $this->query($sql, [$mail, $token]);
+    }
+
+    public function verif_token($mail, $token){
+        $sql = 'SELECT * FROM t_recupmdp WHERE mail=? AND token=?';
+
+        $query = $this->query($sql, [$mail, $token]);
+
+        return $query->getResultArray();
+    }
+
+    public function delete_token($mail){
+        $sql = 'DELETE FROM t_recupmdp WHERE mail=?';
+
+        $this->query($sql, $mail);
+    }
 }

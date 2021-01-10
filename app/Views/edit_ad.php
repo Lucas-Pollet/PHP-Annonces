@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Edition annonce</title>
-    <link rel="stylesheet" href="/css/ad.css">
-    <script type="text/javascript" src="/css/monjs.js"></script>
+    <link rel="stylesheet" href="/public/css/ad.css">
+    <script type="text/javascript" src="/public/css/monjs.js"></script>
 </head>
 <body>
 <?php
@@ -17,7 +17,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
 ?>
 
 <div class="container-ad">
-    <form method="post" action="/public/ad/edit" enctype="multipart/form-data">
+    <form method="post" action="<?= base_url() ?>/public/ad/edit" enctype="multipart/form-data">
         <h2 class="important-title">Édition d'une annonce</h2>
         <br>
         <input name="id" <?php if(isset($A_idannonce)): ?>value="<?= $A_idannonce ?>" <?php endif ?> type="hidden">

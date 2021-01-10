@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Vue</title>
-    <link rel="stylesheet" href="/css/ad.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/ad.css">
 </head>
 <body>
 <?php
@@ -54,9 +54,9 @@ $model_mess = new \App\Models\Messages_model();
 
         <?php if(isset($_SESSION['login']) && isset($ad['U_mail'])):
                 if($_SESSION['login'] != $ad['U_mail']): ?>
-                <a href="/public/messages/conv/<?= $ad['A_idannonce'] ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
+                <a href="<?= base_url() ?>/public/messages/conv/<?= $ad['A_idannonce'] ?>/<?= $model_mess->getPseudo($_SESSION['login']) ?>"><div class="btn--info">Contacter le propriétaire</div></a>
             <?php else: ?>
-                <a href="/public/ad/edit/<?= $ad['A_idannonce'] ?>"><div class="btn--warning">Éditer votre annonce</div></a>
+                <a href="<?= base_url() ?>/public/ad/edit/<?= $ad['A_idannonce'] ?>"><div class="btn--warning">Éditer votre annonce</div></a>
             <?php endif; endif; ?>
         <br>
 

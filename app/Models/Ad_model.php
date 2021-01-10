@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class Ad_model extends Model
 {
-    protected $table = 'T_annonce';
+    protected $table = 't_annonce';
     protected $allowedFields = ['A_idannonce', 'A_titre', 'A_cout_loyer', 'A_cout_charges', 'A_type_chauffage', 'A_superficie', 'A_description', 'A_ville', 'A_CP', 'U_mail'];
 
     public function getListAd(){
@@ -58,6 +58,13 @@ class Ad_model extends Model
     }
 
     public function delete_ad($id=null){
+        $sql = "DELETE FROM `t_message` 
+                WHERE A_idannonce=?";
+
+        $this->db->query($sql, $id);
+
+        $this->removePhoto($id);
+
         $sql = "DELETE FROM `t_annonce` 
                 WHERE A_idannonce=?";
 
@@ -164,7 +171,7 @@ class Ad_model extends Model
     }
 
     public function getNumberOfAd(){
-        $query = $this->db->query('SELECT COUNT(A_idannonce) as "nb" FROM T_annonce WHERE A_state=2');
+        $query = $this->db->query('SELECT COUNT(A_idannonce) as "nb" FROM t_annonce WHERE A_state=2');
 
         $row = $query->getRow();
         return $row->nb;

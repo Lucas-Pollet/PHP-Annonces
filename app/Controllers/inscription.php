@@ -7,7 +7,6 @@ class inscription extends BaseController
 {
     public function index()
     {
-
         if($this->request->getMethod() === 'post'){
             $model = new Uti_model();
 
@@ -44,7 +43,8 @@ class inscription extends BaseController
             $mail_syst = new Mail();
             $mail_syst->sendMail("Compte créé avec succès", "Bienvenue ".$login." sur le site d'annonces immobilières !", $email);
 
-            return redirect()->to('connexion/success');
+            $info = ['success' => 'Votre compte a été créé avec succès !'];
+            echo view('connexion', $info);
         }else{
             echo view('inscription');
         }

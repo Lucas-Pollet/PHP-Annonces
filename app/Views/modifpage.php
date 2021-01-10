@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Compte</title>
-    <link rel="stylesheet" href="/css/log.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/log.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@ if (!empty($erreur)):
 
 if(!empty($modifnom)):
 ?>
-    <form id="msform" action="http://localhost/public/account/modifnom" method="post">
+    <form id="msform" action="<?= base_url() ?>/public/account/modifnom" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -45,7 +45,7 @@ if(!empty($modifnom)):
     </form>
 
 <?php elseif (!empty($modifpseudo)): ?>
-    <form id="msform" action="http://localhost/public/account/modifpseudo" method="post">
+    <form id="msform" action="<?= base_url() ?>/public/account/modifpseudo" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -62,7 +62,7 @@ if(!empty($modifnom)):
         </fieldset>
     </form>
 <?php elseif (!empty($modifmail)): ?>
-    <form id="msform" action="http://localhost/public/account/modifmail" method="post">
+    <form id="msform" action="<?= base_url() ?>/public/account/modifmail" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -79,7 +79,7 @@ if(!empty($modifnom)):
         </fieldset>
     </form>
 <?php elseif (!empty($modifpwd)): ?>
-    <form id="msform" action="http://localhost/public/account/modifpwd" method="post">
+    <form id="msform" action="<?= base_url() ?>/public/account/modifpwd" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -104,7 +104,7 @@ if(!empty($modifnom)):
         </fieldset>
     </form>
 <?php elseif (!empty($delaccount)): ?>
-    <form id="extended-msform" action="http://localhost/public/account/delaccount" method="post">
+    <form id="extended-msform" action="<?= base_url() ?>/public/account/delaccount" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -113,7 +113,7 @@ if(!empty($modifnom)):
             <p class="red-bold-text">Attention, la suppression de votre compte entraine la perte de vos annonces, vos messages et vos données personnelles !!</p>
 
             <p>
-                <a href="/public/account"><input type="button" name="back" class="action-button-grey" value="Annuler"></a>
+                <a href="<?= base_url() ?>/public/account"><input type="button" name="back" class="action-button-grey" value="Annuler"></a>
                 <input type="submit" name="next" class="action-button-red" value="Valider">
             </p>
         </fieldset>

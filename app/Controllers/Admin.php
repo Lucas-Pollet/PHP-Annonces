@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Models\Ad_model;
 use App\Models\Uti_model;
 
 class Admin extends BaseController
@@ -30,8 +31,45 @@ class Admin extends BaseController
 
     }
 
-    public function liste_ad(){
+    public function listead(){
+        $model = new Ad_model();
 
+        $data['listead'] = $model->getListAd();
+
+        return view("admin", $data);
+
+    }
+
+    public function editprofil($id=null){
+        if($id != null){
+            $model = new Uti_model();
+            $data['account'] = $model->getMail($id);
+
+            return view("admin", $data);
+        }
+    }
+
+    public function sendmail($id=null){
+        if($this->request->getMethod() === 'post'){
+            $message = $this->request->getVar('message');
+            $mail = $this->request->getVar('mail');
+
+            $email = new Mail();
+            $email->messageAdmin($message, $mail);
+
+            $data['success'] = "Email envoyé avec succès !";
+
+            return view('admin', $data);
+        }
+
+        if($id != null){
+
+            $data['message'] = 1;
+            $data['mail'] = $id;
+
+            return view("admin", $data);
+
+        }
     }
 
     public function delaccount($id=null){

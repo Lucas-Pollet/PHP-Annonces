@@ -64,7 +64,9 @@ CREATE TABLE `bd_annonces`.`t_admin` (
 	`U_mail` VARCHAR(255) NOT NULL,
 	`role` INT NOT NULL ) ENGINE = InnoDB;
 
-
+CREATE TABLE `bd_annonces`.`t_recupmdp` (
+	`mail` VARCHAR(255) NOT NULL,
+	`token` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
 
 INSERT INTO `t_energie` (`E_id_engie`, `E_description`) VALUES ('1', 'test');
 INSERT INTO `t_typemaison` (`T_type`, `T_description`) VALUES ('appart', 'test');

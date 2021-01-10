@@ -6,6 +6,6 @@ use CodeIgniter\Model;
 
 class Photo_model extends Model
 {
-    protected $table = 'T_photo';
+    protected $table = 't_photo';
 
 }

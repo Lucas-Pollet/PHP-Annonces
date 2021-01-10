@@ -22,6 +22,83 @@ class account extends BaseController
         }
     }
 
+    public function recupmdp(){
+        if(!isset($_SESSION['login'])) {
+            if ($this->request->getMethod() === 'post') {
+
+                $model = new Uti_model();
+
+                $email = $this->request->getVar('user_email');
+
+                if ($model->getMail($email) == null) {
+                    $info = ['erreur' => 'Cet email est inconnu !'];
+                    return view('recupmdp', $info);
+                }
+
+                $token = rand(100000, 999999);
+                $model->insert_token($email, $token);
+
+                $mail = new Mail();
+                $mail->sendTokenByMail($token, $email);
+
+                $info = ['success' => 'Un mail a été envoyé sur votre boite de réception !'];
+                return view('recupmdp', $info);
+            }
+
+            return view("recupmdp");
+        }else{
+            return redirect()->to("/public/");
+        }
+    }
+
+    public function testtoken(){
+        if ($this->request->getMethod() === 'post') {
+
+            $model = new Uti_model();
+
+            $email = $this->request->getVar('user_email');
+            $token = $this->request->getVar('token');
+
+            if ($model->getMail($email) == null) {
+                $info = ['erreur' => 'Cet email est inconnu !'];
+                return view('recupmdp', $info);
+            }
+
+            if($model->verif_token($email, $token) == null){
+                $info = ['erreur' => 'Code ou email invalide !'];
+                return view('recupmdp', $info);
+            }
+
+            $model->delete_token($email);
+
+            $info['modifpwd'] = 1;
+            $info['mail'] = $email;
+            return view('recupmdp', $info);
+        }
+    }
+
+    public function modifpwdwithtoken(){
+        if ($this->request->getMethod() === 'post') {
+
+            $model = new Uti_model();
+
+            $pwd = $this->request->getVar('user_pwd');
+            $confirm = $this->request->getVar('user_confirm');
+            $mail = $this->request->getVar('id');
+
+            if($pwd != $confirm){
+                $data['erreur'] = 'Les mots de passe ne correspondent pas !';
+                $data['modifpwd'] = 1;
+                return view('recupmdp', $data);
+            }
+
+            echo $pwd;
+
+            $model->replacePwd($mail, $pwd);
+            return redirect()->to("/public/account");
+        }
+    }
+
     public function myad(){
         session_start();
 
@@ -56,8 +133,6 @@ class account extends BaseController
                         $array = array('info' => $row['U_receiver'], 'idad' => $row['A_idannonce']);
                         array_push($test, $array);
                 }
-                //$array = array('infoad' => $mess_mod->getAllConversation($row['A_idannonce']), 'idad' => $row['A_idannonce']);
-
             }
 
             $data['list_conv']  = $test;
@@ -85,29 +160,7 @@ class account extends BaseController
         return view('modifpage', $data);
 
     }
-/*
-    public function modifmail(){
-        $data['modifmail']=1;
 
-        if($this->request->getMethod() === 'post') {
-            session_start();
-            $model = new Uti_model();
-            $email = $this->request->getVar('user_email');
-
-            if($model->getMail($email) != null){
-                $data['erreur'] = 'Cet email est déjà existant !';
-                return view('modifpage', $data);
-            }
-
-            $model->replaceMail($_SESSION['login'], $email);
-            $_SESSION['login']=$email;
-
-            return redirect()->to("/public/account");
-        }
-
-        return view('modifpage', $data);
-    }
-*/
     public function modifpseudo(){
         $data['modifpseudo']=1;
 

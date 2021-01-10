@@ -6,6 +6,6 @@ use CodeIgniter\Model;
 
 class Type_model extends Model
 {
-    protected $table = 'T_typeMaison';
+    protected $table = 't_typeMaison';
 
 }

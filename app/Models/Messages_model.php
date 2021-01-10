@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class Messages_model extends Model
 {
-    protected $table = 'T_message';
+    protected $table = 't_message';
 
     public function insert_message($mail, $receiver, $id_ad, $text){
         $sql = "INSERT INTO `t_message` (`M_date`, `M_texte`, `U_mail`, `U_receiver`, `A_idannonce`) VALUES (now(), ?, ?, ?, ?)";

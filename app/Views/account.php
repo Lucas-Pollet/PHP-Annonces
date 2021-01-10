@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Compte</title>
-    <link rel="stylesheet" href="/css/ad.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/ad.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@ $model = new \App\Models\Ad_model();
 <div class="container-card">
 
     <nav class="tabs-menu">
-        <a href="/public/public/account/" class="tabs-menu-link">Mon compte</a>
+        <a href="/public/account" class="tabs-menu-link">Mon compte</a>
         <a href="/public/account/myad" class="tabs-menu-link">Mes annonces</a>
         <a href="/public/account/messages" class="tabs-menu-link">Mes messages</a>
     </nav>
@@ -32,20 +32,20 @@ $model = new \App\Models\Ad_model();
             <br>
             <h2><i class="fas fa-user-alt"></i> Profil</h2>
             <?php if(!empty($account['U_pseudo']) && !empty($account['U_prenom']) && !empty($account['U_nom']) && !empty($account['U_mail'])): ?>
-            <h4>Votre pseudo: <?= $account['U_pseudo'] ?> <a href="/public/public/account/modifpseudo/"><button class="btn--info">Modifier</button></a></h4>
-            <h4>Votre nom: <?= $account['U_prenom']." ". $account['U_nom']?> <a href="/public/public/account/modifnom/"><button class="btn--info">Modifier</button></a></h4>
+            <h4>Votre pseudo: <?= $account['U_pseudo'] ?> <a href="account/modifpseudo"><button class="btn--info">Modifier</button></a></h4>
+            <h4>Votre nom: <?= $account['U_prenom']." ". $account['U_nom']?> <a href="account/modifnom"><button class="btn--info">Modifier</button></a></h4>
             <h4>Votre adresse email: <?= $account['U_mail'] ?></h4><br>
-            <a href="/public/public/account/modifpwd/"><button class="btn--info">Modifier mon mot de passe</button></a><br><br>
+            <a href="account/modifpwd"><button class="btn--info">Modifier mon mot de passe</button></a><br><br>
 
                 <?php
                 $uti_mod = new \App\Models\Uti_model();
 
-                if($uti_mod->getAdmin($account['U_pseudo']) == 1): ?>
-                    <a href="/public/admin"><button class="btn--warning">Accéder au panel admin</button></a>
+                if($uti_mod->getAdmin($account['U_mail']) == 1): ?>
+                    <a href="admin"><button class="btn--warning">Accéder au panel admin</button></a>
                     <?php
                         else:
                     ?>
-                       <a href="/public/public/account/delaccount/"><button class="btn--warning">Supprimer mon compte</button></a>
+                       <a href="account/delaccount"><button class="btn--warning">Supprimer mon compte</button></a>
 
             <?php endif; endif; ?>
         <?php elseif (isset($ad_data) || isset($archive_ad_data)): ?>

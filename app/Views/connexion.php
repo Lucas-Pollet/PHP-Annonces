@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Connexion</title>
-    <link rel="stylesheet" href="/css/log.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/log.css">
 </head>
 <body>
 <div class="background">
@@ -22,7 +22,7 @@ if(!empty($erreur)): ?>
     <div class="alert--danger"><i class="fas fa-times"></i> <?= $erreur ?></div>
 <?php endif ?>
 
-    <form id="msform" action="http://localhost/public/connexion" method="post">
+    <form id="msform" action="<?= base_url() ?>/public/connexion" method="post">
         <?= csrf_field() ?>
 
         <fieldset>
@@ -41,7 +41,8 @@ if(!empty($erreur)): ?>
                 <input type="submit" name="next" class="action-button" value="Se connecter">
             </p>
 
-            <a href="http://localhost/public/inscription">Pas de compte? Inscrivez-vous!</a>
+            <a href="<?= base_url() ?>/public/account/recupmdp">Mot de passe oublié ?</a><br>
+            <a href="<?= base_url() ?>/public/inscription">Pas de compte? Inscrivez-vous!</a>
 
         </fieldset>
     </form>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Messages</title>
-    <link rel="stylesheet" href="/css/card.css">
-    <link rel="stylesheet" href="/css/messages.css">
+
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/messages.css">
 </head>
 <body>
 <?php
@@ -49,14 +49,13 @@ $model = new \App\Models\Messages_model();
     </div>
 
 
-    <div class="container">
-        <form method="post" action="/public/messages/conv">
+    <div class="container-input">
+        <form method="post" action="<?= base_url() ?>/public/messages/conv">
             <p align="center"><input type="text" class="input" name="texte" id="message" placeholder="Votre message"></p>
             <input type="submit" class="btn--info button">
             <input name="id" <?php if(isset($id)): ?>value="<?= $id ?>" <?php endif ?> type="hidden">
             <input name="id2" <?php if(isset($id2)): ?>value="<?= $id2 ?>" <?php endif ?> type="hidden">
         </form>
-
     </div>
 </body>
 </html>

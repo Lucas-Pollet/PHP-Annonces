@@ -14,17 +14,29 @@ class Mail extends BaseController
         $config['SMTPUser'] = 'immodanslafrance@gmail.com';
         $config['SMTPPass'] = 'Yt75bVrZ5';
         $config['SMTPPort'] = 465;
+        $config['mailType'] = 'html';
 
         $email->initialize($config);
 
         return $email;
     }
 
-    public function index()
-    {
-        $dest = 'lucaspol@hotmail.fr';
+    public function sendTokenByMail($token, $dest){
+        $message='Bonjour, <br>';
+        $message.='Une demande pour récupérer votre compte a été demandé<br>';
+        $message.='Pour le récupérer, entrez le code suivant sur le site: <br>';
+        $message.='<b>'.$token.'</b>';
 
-        $this->sendMail('Bonjour ceci est un test', "Ceci est le contenu", $dest);
+        return $this->sendMail('Reset de mot de passe', $message, $dest);
+
+    }
+
+    public function messageAdmin($mess, $dest){
+        $message='Message de admin<br>';
+        $message.='<b>'.$mess.'</b>';
+
+        return $this->sendMail('Message ADMIN', $message, $dest);
+
     }
 
     public function sendMail($subject, $message, $dest)
@@ -36,10 +48,9 @@ class Mail extends BaseController
         $email->setMessage($message);
         $email->send();
 
-        if($email->send(true)){
-            echo "Mail envoyé !";
-        }else{
-            echo "Erreur";
+        if(!$email->send(false)){
+            // echo $email->printDebugger();
+            echo "Une erreur est survenu dans l'envoie du mail.";
         }
     }
 

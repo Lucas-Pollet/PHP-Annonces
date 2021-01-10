@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Inscription</title>
-    <link rel="stylesheet" href="/css/log.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/log.css">
 </head>
 <body>
 <div class="background">
@@ -29,7 +29,7 @@ if (!empty($erreur)):
             </div>
             <div>
                 <label for="login">Pseudo</label>
-                <input type="text" id="login" name="user_login" placeholder="Votre pseudo" required>
+                <input type="text" id="login" name="user_login" maxlength="15" placeholder="Votre pseudo" required>
             </div>
             <div>
                 <label for="name">Nom</label>
