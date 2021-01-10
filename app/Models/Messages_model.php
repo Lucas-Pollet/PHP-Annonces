@@ -47,4 +47,11 @@ class Messages_model extends Model
         return $query->getResultArray();
     }
 
+    public function deleteAllMessages($id){
+        $sql = "DELETE FROM `t_message` 
+                WHERE A_idannonce=?";
+
+        $this->db->query($sql, $id);
+    }
+
 }

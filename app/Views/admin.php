@@ -37,11 +37,15 @@ if (!empty($success)): ?>
 
         foreach ($listead as $row){ ?>
         <div class="box-ad">
-            <p class="text-ad"><?= $row['A_titre'] ?> - <?php if($model->getState($row['A_idannonce']) == 1):  ?>Rédaction<?php else: ?> Publié le <?= $model->getDate($row['A_idannonce']) ?><?php endif ?>
+            <p class="text-ad"><?= $row['A_titre'] ?> -
+                <?php if($model->getState($row['A_idannonce']) == 1):  ?>Rédaction<?php elseif($model->getState($row['A_idannonce']) == 2): ?> Publié le <?= $model->getDate($row['A_idannonce']); else:?>
+                Archive
+                <?php endif ?>
 
                 <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
-                <a href="/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
-                <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                <a href="/public/admin/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
+                <a href="/public/admin/delmessage/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="far fa-calendar-times"></i></span></a>
+                <a href="/public/admin/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
             </p>
         </div>
 
@@ -70,9 +74,15 @@ if (!empty($success)): ?>
 
     if (!empty($account['U_pseudo']) && !empty($account['U_prenom']) && !empty($account['U_nom']) && !empty($account['U_mail'])): ?>
     <h2>Edition du profil de <?= $account['U_pseudo'] ?></h2>
-    <h4>Pseudo: <?= $account['U_pseudo'] ?></h4>
-    <h4>Nom: <?= $account['U_prenom'] . " " . $account['U_nom'] ?> </h4>
-    <h4>Adresse email: <?= $account['U_mail'] ?></h4>
+    <form method="post" action="<?= base_url() ?>/public/admin/editprofil">
+        <h4>Pseudo: <input name="pseudo" value="<?= $account['U_pseudo'] ?>"></h4>
+        <h4>Prénom: <input name="prename" value="<?= $account['U_prenom'] ?>"></h4>
+        <h4>Nom: <input name="name" value="<?= $account['U_nom'] ?>"></h4>
+        <h4>Adresse email: <?= $account['U_mail'] ?></h4>
+        <br>
+        <input type="hidden" name="id" value="<?= $account['U_mail'] ?>">
+        <input type="submit" value="Valider" class="btn--info">
+    </form>
     <br>
 <?php
     endif;

@@ -77,6 +77,10 @@ $routes->post('admin/editprofil/', 'Admin::editprofil');
 $routes->get('admin/sendmail/(:any)', 'Admin::sendmail/$1');
 $routes->post('admin/sendmail/', 'Admin::sendmail');
 
+$routes->get('admin/delete/(:num)', 'Admin::del_ad/$1');
+$routes->get('admin/delmessage/(:num)', 'Admin::del_message/$1');
+$routes->get('admin/archive/(:num)', 'Admin::archive_ad/$1');
+
 $routes->get('account/modifpwd', 'account::modifpwd');
 
 // Action ad

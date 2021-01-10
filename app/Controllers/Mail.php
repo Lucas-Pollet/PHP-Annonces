@@ -36,6 +36,13 @@ class Mail extends BaseController
         $message.='<b>'.$mess.'</b>';
 
         return $this->sendMail('Message ADMIN', $message, $dest);
+    }
+
+    public function decisionAdmin($mess, $dest){
+        $message='-> Décision de l\'admin du site<br>';
+        $message.='<b>'.$mess.'</b>';
+
+        return $this->sendMail('Décision ADMIN', $message, $dest);
 
     }
 
