@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Compte</title>
-    <link rel="stylesheet" href="<?= base_url() ?>/public/css/ad.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/annonces.css">
 </head>
 
 <body>
@@ -23,9 +23,9 @@ $model = new \App\Models\Ad_model();
 <div class="container-card">
 
     <nav class="tabs-menu">
-        <a href="/public/account" class="tabs-menu-link">Mon compte</a>
-        <a href="/public/account/myad" class="tabs-menu-link">Mes annonces</a>
-        <a href="/public/account/messages" class="tabs-menu-link">Mes messages</a>
+        <a href="<?= base_url() ?>/public/account" class="tabs-menu-link">Mon compte</a>
+        <a href="<?= base_url() ?>/public/account/myad" class="tabs-menu-link">Mes annonces</a>
+        <a href="<?= base_url() ?>/public/account/messages" class="tabs-menu-link">Mes messages</a>
     </nav>
 
         <?php if(isset($account)): ?>
@@ -50,7 +50,7 @@ $model = new \App\Models\Ad_model();
             <?php endif; endif; ?>
         <?php elseif (isset($ad_data) || isset($archive_ad_data)): ?>
             <br>
-             <a href="/public/ad/create" class="bar"><div class="btn--info"><i class="fas fa-plus-circle"></i>  Ajouter une annonce</div></a>
+             <a href="<?= base_url() ?>/public/ad/create" class="bar"><div class="btn--info"><i class="fas fa-plus-circle"></i>  Ajouter une annonce</div></a>
 
             <h3>Annonces publiés ou en rédaction</h3>
         <?php
@@ -60,14 +60,14 @@ $model = new \App\Models\Ad_model();
                         <p class="text-ad"><?= $row['A_titre'] ?> - <?php if($model->getState($row['A_idannonce']) == 1):  ?>Rédaction<?php else: ?> Publié le <?= $model->getDate($row['A_idannonce']) ?><?php endif ?>
 
                             <?php if($row['A_state'] == 2): ?>
-                                <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                                <a href="<?= base_url() ?>/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
                             <?php endif ?>
-                            <a href="/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
+                            <a href="<?= base_url() ?>/public/ad/edit/<?= $row['A_idannonce'] ?>" h><span class="ad-button yellowcolor"><i class="fas fa-edit"></i></span></a>
 
                             <?php if($row['A_state'] == 2): ?>
-                                <a href="/public/ad/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
+                                <a href="<?= base_url() ?>/public/ad/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
                             <?php elseif($row['A_state'] == 1): ?>
-                                <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                                <a href="<?= base_url() ?>/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -82,8 +82,8 @@ $model = new \App\Models\Ad_model();
                         foreach ($archive_ad_data as $row){ ?>
                          <div class="box-ad">
                              <p class="text-ad"><?= $row['A_titre'] ?>
-                                 <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
-                                 <a href="/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                                 <a href="<?= base_url() ?>/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                                 <a href="<?= base_url() ?>/public/ad/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
                              </p>
                          </div>
 
@@ -99,10 +99,9 @@ $model = new \App\Models\Ad_model();
                     foreach ($list_conv as $row){
 
                         if($_SESSION['login'] == $model_mess->getProprio($row['idad'])){
-                            $link = "/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($row['info']);
+                            $link = base_url()."/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($row['info']);
                         }else{
-                            $link = "/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($_SESSION['login']);
-
+                            $link = base_url()."/public/messages/conv/".$row['idad']."/".$model_mess->getPseudo($_SESSION['login']);
                         }
 
                         if(!in_array($link, $list)):

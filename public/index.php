@@ -26,14 +26,16 @@ if(!file_exists('config.json')) {
     require $pathsPath;
     $paths = new Config\Paths();
 
+    define ('SITE_ROOT', realpath(dirname(__FILE__)));
 
     $jsonConfigFile = file_get_contents("config.json");
     $config = json_decode($jsonConfigFile, true);
 
-    $_ENV['db_hostname'] = $config['hostname'];
-    $_ENV['db_username'] = $config['user'];
-    $_ENV['db_password'] = $config['pwd'];
-    $_ENV['db_name'] = $config['dbname'];
+    $_ENV['database.default.hostname'] = $config['hostname'];
+    $_ENV['database.default.username'] = $config['user'];
+    $_ENV['database.default.password'] = $config['pwd'];
+    $_ENV['database.default.database'] = $config['dbname'];
+    $_ENV['app.baseURL'] = $config['url'];
 
     // Location of the framework bootstrap file.
     $app = require rtrim($paths->systemDirectory, '/ ') . '/bootstrap.php';

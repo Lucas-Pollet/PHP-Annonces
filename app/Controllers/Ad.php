@@ -68,18 +68,18 @@ class Ad extends BaseController
 
                 foreach ($_FILES as $element){
                     if($element['error'] == 0) {
-                        move_uploaded_file($element["tmp_name"], "img/" . $element["name"]);
+                        move_uploaded_file($element["tmp_name"], SITE_ROOT."/img/" . $element["name"]);
 
                         $model->addPhoto($element["name"], $element["name"], $model->getLastID($_SESSION['login']));
                     }
                 }
 
-                return redirect()->to('/public/account/myad');
+                return redirect()->to(base_url().'/public/account');
             }else{
                 return view('create_ad');
             }
         }else{
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }
     }
 
@@ -115,13 +115,13 @@ class Ad extends BaseController
 
                 foreach ($_FILES as $element){
                     if($element['error'] == 0) {
-                        move_uploaded_file($element["tmp_name"], "img/" . $element["name"]);
+                        move_uploaded_file($element["tmp_name"], SITE_ROOT."/img/" . $element["name"]);
 
                         $model->addPhoto($element["name"], $element["name"], $id_edit);
                     }
                 }
 
-                return redirect()->to('/public/account/myad');
+                return redirect()->to(base_url().'/public/account');
             }
 
             $data = $model->getAd($id);
@@ -131,10 +131,10 @@ class Ad extends BaseController
             if($data['U_mail'] == $_SESSION['login']){
                 return view('edit_ad', $data);
             }else{
-                return redirect()->to('/public/');
+                return redirect()->to(base_url().'/public/');
             }
         }else{
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }
 
     }
@@ -147,7 +147,7 @@ class Ad extends BaseController
             if($data['U_mail'] == $_SESSION['login']){
                 $model->removePhoto($id);
 
-                return redirect()->to("/public/ad/edit/".$id);
+                return redirect()->to(base_url()."/public/ad/edit/".$id);
             }
         }
     }
@@ -161,12 +161,12 @@ class Ad extends BaseController
             // Vérification si cette annonce appartient bien à son créateur
             if($data['U_mail'] == $_SESSION['login']){
                 $model->archive_ad($id);
-                return redirect()->to('/public/account/myad');
+                return redirect()->to(base_url().'/public/account/myad');
             }else{
-                return redirect()->to('/public/');
+                return redirect()->to(base_url().'/public/');
             }
         }else{
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }
     }
 
@@ -180,12 +180,12 @@ class Ad extends BaseController
             // Vérification si cette annonce appartient bien à son créateur
             if($data['U_mail'] == $_SESSION['login']){
                 $model->delete_ad($id);
-                return redirect()->to('/public/account/myad');
+                return redirect()->to(base_url().'/public/account/myad');
             }else{
-                return redirect()->to('/public/');
+                return redirect()->to(base_url().'/public/');
             }
         }else{
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }
     }
 

@@ -29,7 +29,7 @@ class connexion extends BaseController
             session_start();
             $_SESSION['login']=$email;
 
-            return redirect()->to('public');
+            return redirect()->to(base_url().'/public');
         }else{
             echo view('connexion');
         }

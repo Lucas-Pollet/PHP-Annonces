@@ -95,7 +95,7 @@ class account extends BaseController
             echo $pwd;
 
             $model->replacePwd($mail, $pwd);
-            return redirect()->to("/public/account");
+            return redirect()->to(base_url()."/public/account");
         }
     }
 
@@ -154,7 +154,7 @@ class account extends BaseController
 
             $model->replaceName($_SESSION['login'], $prename, $name);
 
-            return redirect()->to("/public/account");
+            return redirect()->to(base_url()."/public/account");
         }
 
         return view('modifpage', $data);
@@ -178,7 +178,7 @@ class account extends BaseController
 
             $model->replacePseudo($profil['U_pseudo'], $pseudo);
 
-            return redirect()->to("/public/account");
+            return redirect()->to(base_url()."/public/account");
         }
 
         return view('modifpage', $data);
@@ -209,7 +209,7 @@ class account extends BaseController
             }
 
             $model->replacePwd($_SESSION['login'], $mdp);
-            return redirect()->to("/public/account");
+            return redirect()->to(base_url()."/public/account");
         }
 
 
@@ -225,7 +225,7 @@ class account extends BaseController
             $model->delAccount($_SESSION['login']);
             unset($_SESSION['login']);
 
-            return redirect()->to('/public');
+            return redirect()->to(base_url().'/public');
         }
 
 

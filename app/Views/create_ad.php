@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Créer une annonce</title>
-    <link rel="stylesheet" href="/public/css/ad.css">
-    <script type="text/javascript" src="/public/css/monjs.js"></script>
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/annonces.css">
+    <script type="text/javascript" src="<?= base_url() ?>/public/css/monjs.js"></script>
 </head>
 <body>
 <?php
@@ -17,7 +17,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
 ?>
 
 <div class="container-ad">
-    <form method="post" action="/public/ad/create" enctype="multipart/form-data">
+    <form method="post" action="<?= base_url() ?>/public/ad/create" enctype="multipart/form-data">
         <h2 class="important-title">Créer une nouvelle annonce</h2>
         <br>
         <div>

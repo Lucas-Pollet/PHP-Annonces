@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Edition annonce</title>
-    <link rel="stylesheet" href="/public/css/ad.css">
-    <script type="text/javascript" src="/public/css/monjs.js"></script>
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/annonces.css">
+    <script type="text/javascript" src="<?= base_url() ?>/public/css/monjs.js"></script>
 </head>
 <body>
 <?php
@@ -64,7 +64,7 @@ $smarty->display(APPPATH . 'Views/connected_header.tpl');
                 </script>
             <?php
                 foreach ($photo as $item){
-                    echo "<img src='/public/img/".$item['P_nom']."' class='image-ad'>";
+                    echo "<img src=".base_url()."/public/img/".$item['P_nom']."' class='image-ad'>";
                 }
                 endif;
                 if(sizeof($photo) > 0):

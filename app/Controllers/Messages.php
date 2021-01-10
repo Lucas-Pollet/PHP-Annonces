@@ -21,7 +21,7 @@ class Messages extends BaseController
                 $id_asker = $this->request->getVar('id2');
 
                 if (empty($text)) {
-                    return redirect()->to('/public/messages/conv/' . $id_ad . '/' . $id_asker);
+                    return redirect()->to(base_url().'/public/messages/conv/' . $id_ad . '/' . $id_asker);
                 }
 
                 $mail = new Mail();
@@ -38,11 +38,11 @@ class Messages extends BaseController
                     $mail->sendMail("Nouveau message", "Bonjour, vous avez un nouveau message dans votre messagerie pour l'annonce ".$recup['A_titre'], $model->getProprio($id_ad));
                 }
 
-                return redirect()->to('/public/messages/conv/' . $id_ad . '/' . $id_asker);
+                return redirect()->to(base_url().'/public/messages/conv/' . $id_ad . '/' . $id_asker);
             }
 
             if ($id == null || $id_2 == null) {
-                return redirect()->to('/public/');
+                return redirect()->to(base_url().'/public/');
             }
 
             $model = new Messages_model();

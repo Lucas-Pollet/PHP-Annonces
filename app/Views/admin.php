@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Compte</title>
-    <link rel="stylesheet" href="<?= base_url() ?>/public/css/ad.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/annonces.css">
 </head>
 
 <body>
@@ -42,10 +42,10 @@ if (!empty($success)): ?>
                 Archive
                 <?php endif ?>
 
-                <a href="/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
-                <a href="/public/admin/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
-                <a href="/public/admin/delmessage/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="far fa-calendar-times"></i></span></a>
-                <a href="/public/admin/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
+                <a href="<?= base_url() ?>/public/ad/show/<?= $row['A_idannonce'] ?>"><span class="ad-button greencolor"><i class="fas fa-eye"></i></span></a>
+                <a href="<?= base_url() ?>/public/admin/archive/<?= $row['A_idannonce'] ?>"><span class="ad-button browncolor"><i class="fas fa-archive"></i></span></a>
+                <a href="<?= base_url() ?>/public/admin/delmessage/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="far fa-calendar-times"></i></span></a>
+                <a href="<?= base_url() ?>/public/admin/delete/<?= $row['A_idannonce'] ?>"><span class="ad-button redcolor"><i class="fas fa-trash"></i></span></a>
             </p>
         </div>
 

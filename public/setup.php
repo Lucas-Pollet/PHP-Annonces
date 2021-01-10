@@ -20,6 +20,9 @@
         <h1>Installation du site Annonces Immobilières</h1>
         <br>
         <form action="setup.php" method="post">
+            <label>Adresse du site</label>
+            <input name="url" id="url" type="text" />
+
             <h3>Configuration base de données</h3>
 
             <label>Hostname : </label>
@@ -60,7 +63,7 @@
 
 <?php
 if(isset($_POST['bdd_hostname']) && isset($_POST['bdd_user']) && isset($_POST['bdd_password']) && isset($_POST['bdd_name']) &&
-isset($_POST['email']) && isset($_POST['name']) && isset($_POST['prename']) && isset($_POST['password']) && isset($_POST['confirm'])){
+isset($_POST['email']) && isset($_POST['name']) && isset($_POST['prename']) && isset($_POST['password']) && isset($_POST['confirm']) && isset($_POST['url'])){
 
 
     $db = new PDO("mysql:host=" . $_POST['bdd_hostname'] . ";dbname=" . $_POST['bdd_name'], $_POST['bdd_user'], $_POST['bdd_password']);
@@ -69,7 +72,7 @@ isset($_POST['email']) && isset($_POST['name']) && isset($_POST['prename']) && i
     $stmt->execute();
 
     $data = [
-        'hostname' => $_POST['bdd_hostname'], 'dbname' => $_POST['bdd_name'], 'user' => $_POST['bdd_user'], 'pwd' => $_POST['bdd_password']
+        'hostname' => $_POST['bdd_hostname'], 'dbname' => $_POST['bdd_name'], 'user' => $_POST['bdd_user'], 'pwd' => $_POST['bdd_password'], 'url' => $_POST['url']
     ];
 
     if($_POST['password'] != $_POST['confirm']){

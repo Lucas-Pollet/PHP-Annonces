@@ -11,7 +11,7 @@ class Logout extends BaseController
         session_start();
         if(isset($_SESSION['login'])){
             unset($_SESSION['login']);
-            return redirect()->to('/public/');
+            return redirect()->to(base_url().'/public/');
         }
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Annonces - Vue</title>
-    <link rel="stylesheet" href="<?= base_url() ?>/public/css/ad.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/public/css/annonces.css">
 </head>
 <body>
 <?php
@@ -35,7 +35,7 @@ $model_mess = new \App\Models\Messages_model();
 
             <?php if(isset($photo))
                 foreach ($photo as $item){
-                    echo "<img src='/public/img/".$item['P_nom']."' class='image-ad'>";
+                    echo "<img src=".base_url()."/public/img/".$item['P_nom']." class='image-ad'>";
                 }?>
 
         <div class="titre-ad"><?= $ad['A_titre'] ?></div>
